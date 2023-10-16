@@ -1,42 +1,43 @@
-# Nitro Minimal Starter
+# Nuxt GraphQL Depencency Error Reproduction
 
-Look at the [Nitro documentation](https://nitro.unjs.io/) to learn more.
+Follow-up reproduction repo for [https://github.com/skaempfer/nuxt-graphql-dependency-error](https://github.com/skaempfer/nuxt-graphql-dependency-error) to check if error is present in Nitro app as well.
 
 ## Setup
 
-Make sure to install the dependencies:
+Run `npm ci` to install project dependencies.
 
-```bash
-# npm
-npm install
+## Code Points of Interest
 
-# yarn
-yarn install
+The graphql dependency is imported and used inside the `routes/index.ts` component.
 
-# pnpm
-pnpm install
-```
+## Error Reproduction
 
-## Development Server
+The error reproduction involves building and running the application in production mode on Windows and Linux. The following environments have been used to run the applications:
 
-Start the development server on <http://localhost:3000>
+ - Windows 11 22H2
+ - Linux 5.15.90.1-microsoft-standard-WSL2
+ - Node 18.18.1
 
-```bash
-npm run dev
-```
+ Execute the following steps in both Linux and Windows environment:
 
-## Production
+ 1. Run `npm run build` to build the app in production mode
+ 2. Run `npm run preview` to start application
+ 3. Open a browser and navigate to `http://localhost:3000` (default port used by the app)
 
-Build the application for production:
+ Expected behaviour in both environments:
 
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nitro.unjs.io/deploy) for more information.
+- On Linux you will be served the Nuxt example page
+- On Windows you will be served a server error page 500. Observing the console output you will see the following message
+  ```
+  [nitro] [request error] [unhandled] Cannot find package '<yourpath>\nitro-app\.output\server\node_modules\graphql\' imported from <yourpath>\nitro-app\.output\server\chunks\index.mjs
+    at new NodeError (node:internal/errors:405:5)
+    at legacyMainResolve (node:internal/modules/esm/resolve:234:9)
+    at packageResolve (node:internal/modules/esm/resolve:877:14)
+    at moduleResolve (node:internal/modules/esm/resolve:939:20)
+    at defaultResolve (node:internal/modules/esm/resolve:1132:11)
+    at nextResolve (node:internal/modules/esm/loader:163:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:835:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
+    at link (node:internal/modules/esm/module_job:76:36)
+  ```
