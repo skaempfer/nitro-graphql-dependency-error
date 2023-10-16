@@ -1,4 +1,4 @@
-# Nuxt GraphQL Depencency Error Reproduction
+# Nitro GraphQL Depencency Error Reproduction
 
 Follow-up reproduction repo for [https://github.com/skaempfer/nuxt-graphql-dependency-error](https://github.com/skaempfer/nuxt-graphql-dependency-error) to check if error is present in Nitro app as well.
 
@@ -26,7 +26,7 @@ The error reproduction involves building and running the application in producti
 
  Expected behaviour in both environments:
 
-- On Linux you will be served the Nuxt example page
+- On Linux you will be served the Nitro default reoute response.
 - On Windows you will be served a server error page 500. Observing the console output you will see the following message
   ```
   [nitro] [request error] [unhandled] Cannot find package '<yourpath>\nitro-app\.output\server\node_modules\graphql\' imported from <yourpath>\nitro-app\.output\server\chunks\index.mjs
